@@ -71,8 +71,4 @@ jobs:
         with:
           app-name: 'mini-shop'
           slot-name: 'Production'
-          package: .
-      - name: copy the nginx configrations
-        run: cp /home/site/wwwroot/nginx/default.conf /etc/nginx/sites-available/default && service nginx restart
-      
-          
+          package: .     
