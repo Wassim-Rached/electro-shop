@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+  fpm:
+    container_name: mini-shop_fpm
+    build:
+      context: docker/build/php
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=mysql://wsaz:wsaz@mysql/mini-shop
+    volumes:
+      - ./:/var/www/project/:cached
+    networks:
+      - main_network
+
+  nginx:
+    container_name: mini-shop_nginx
+    build:
+      context: docker/build/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/project/:cached
+    depends_on:
+      - fpm
+    ports:
+      - "10302:80"
+    networks:
+      - main_network
+
+  mysql:
+    container_name: mini-shop_mysql
+    image: mysql:latest
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mini-shop
+      MYSQL_USER: wsaz
+      MYSQL_PASSWORD: wsaz
+    networks:
+      - main_network
+
+  phpmyadmin:
+    container_name: mini-shop_phpmyadmin
+    depends_on:
+      - mysql
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+
+
+networks:
+  main_network:
+        driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
