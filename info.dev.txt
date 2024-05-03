@@ -1,0 +1,15 @@
+symfony project up on : localhost:1001
+phpmyadmin up on: localhost:1002
+
+# to shut down the containers
+docker-compose down
+# to start or create the containers
+docker-compose up
+
+# to create new branch in git
+git checkout -b branch_name
+
+# to push the branch to the remote repository
+git add .
+git commit -m "message"
+git push origin branch_name
