@@ -1,7 +1,5 @@
 # Electro shop
 
-Electro shop is a [brief description or tagline of your project].
-
 ## Getting Started
 
 To get started with the project, follow these steps:
@@ -20,15 +18,15 @@ Make sure you have Git installed on your machine. Then, clone the dev repository
 
 Once the Docker containers are up and running, you can access the website at:
 
-    Website: http://localhost:1001
-    PHPMyAdmin: http://localhost:1002
+- Website: http://localhost:1001
+- PHPMyAdmin: http://localhost:1002
 
 4. Check for Problems
 
 To check if the project has any problems, you can visit the following endpoints:
 
-    Health Check: http://localhost:1001/health-check
-    Database Health Check: http://localhost:1001/health-check/db
+- Health Check: http://localhost:1001/health-check
+- Database Health Check: http://localhost:1001/health-check/db
 
 5. Execute Migrations (If Needed)
 
