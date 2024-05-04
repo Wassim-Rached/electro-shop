@@ -20,3 +20,5 @@ git push origin branch_name
 
 # for any command that effects symfony use this to open terminal in the container
 docker exec -it mini-shop_fpm bash
+
+Anis Zmerli CHECK.
