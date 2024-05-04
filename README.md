@@ -33,8 +33,9 @@ To check if the project has any problems, you can visit the following endpoints:
 If there are any problems with the database
 
 ```bash
+	composer update
 	docker exec -it mini-shop_fpm bash
-	php bin/console doctrine:database:create
+	cd ../project
 	php bin/console doctrine:migrations:migrate
 ```
 
