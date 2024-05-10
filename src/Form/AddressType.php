@@ -2,30 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\ApplicationUser;
-use App\Entity\Product;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Product1Type extends AbstractType
+class AddressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('quantity')
-            ->add('price')
-            ->add('isUsed')
+            ->add('address_line1')
+            ->add('address_line2')
+            ->add('postalCode')
+            ->add('city')
+            ->add('phoneNumber')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Product::class,
+            'data_class' => Address::class,
         ]);
     }
 }

@@ -35,12 +35,18 @@
                 <th>IsUsed</th>
                 <td>{{ product.isUsed ? 'Yes' : 'No' }}</td>
             </tr>
+        <tr>
+            <th>created_by</th>
+            <td>{{ product.createdBy.username }}</td>
+        </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_product_index') }}">back to list</a>
 
-    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+    {% if app.user and product.createdBy.id != app.user.id  %}
+        <a href="{{ path('app_command_new', {'id': product.id}) }}">command</a>
+        {{ include('product/_delete_form.html.twig') }}
+    {% endif %}
 
-    {{ include('product/_delete_form.html.twig') }}
 {% endblock %}
