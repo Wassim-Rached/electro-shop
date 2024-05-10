@@ -30,5 +30,18 @@ class HealthCheckController extends AbstractController
             }
         } catch (\Exception $e) {
             return $this->json('E: Failed to connect to the database.', 500);
-        }    }
+        }
+    }
+
+    // check the current user
+    #[Route('/health-check/user', name: 'app_health_check_user')]
+    public function test_user(): JsonResponse
+    {
+        $user = $this->getUser();
+        if ($user) {
+            return $this->json('User '.$user->getUserIdentifier().' is authenticated.');
+        } else {
+            return $this->json('User is not authenticated.', 401);
+        }
+    }
 }

@@ -30,10 +30,12 @@ services:
   mysql:
     container_name: mini-shop_mysql
     image: mysql:latest
+    ports:
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: mini-shop
       MYSQL_USER: wsaz
       MYSQL_PASSWORD: wsaz
@@ -46,15 +48,20 @@ services:
       - mysql
     image: phpmyadmin:latest
     restart: always
+    links:
+      - mysql
     ports:
       - "1002:80"
     environment:
+      MYSQL_ROOT_PASSWORD: password
       PMA_HOST: mysql
+    networks:
+      - main_network
 
 
 networks:
   main_network:
-        driver: bridge
+    driver: bridge
 
 volumes:
   mysql-data:

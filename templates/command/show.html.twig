@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command{% endblock %}
+
+{% block body %}
+    <h1>Command</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ command.id }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ command.status }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ command.createdAt ? command.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Delivred_at</th>
+                <td>{{ command.delivredAt ? command.delivredAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ command.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ command.total }}</td>
+            </tr>
+        <tr>
+            <th>for user</th>
+            <td>{{ command.forUser.username }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+    {{ include('command/_delete_form.html.twig') }}
+{% endblock %}
