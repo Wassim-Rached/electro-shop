@@ -42,7 +42,16 @@
         </div>
 
         <div>
+
         <ul class="links">
+            {% if app.user and app.user.username == 'admin' %}
+                <li>
+                    <a href="{{ path('app_admin_products') }}">Requests</a>
+                </li>
+                <li>
+                    <a href="{{ path('app_product_report_index') }}">Reports</a>
+                </li>
+            {% else %}
             <li>
                 <a href="{{ path('app_product_index') }}">all products</a>
             </li>
@@ -57,6 +66,7 @@
                     <a href="{{ path('app_my_cart') }}">my cart</a>
                 </li>
             {% endif %}
+        {% endif %}
         </ul>
         </div>
 

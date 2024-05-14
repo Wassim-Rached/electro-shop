@@ -44,9 +44,19 @@
 
     <a href="{{ path('app_product_index') }}">back to list</a>
 
-    {% if app.user and product.createdBy.id != app.user.id  %}
+    {% if app.user and app.user.username != 'admin' %}
+        {% if product.createdBy.id == app.user.id %}
+            {{ include('product/_delete_form.html.twig') }}
+        {% else %}
         <a href="{{ path('app_command_new', {'id': product.id}) }}">command</a>
-        {{ include('product/_delete_form.html.twig') }}
+{#            report#}
+            <a href="{{ path('app_product_report_new', {'id': product.id}) }}">report</a>
+        {% endif %}
+    {% endif %}
+
+    {% if app.user and app.user.username == 'admin' %}
+        <a href="{{ path('app_admin_products_accept', {'id': product.id}) }}">accept</a>
+        <a href="{{ path('app_admin_products_refuse', {'id': product.id}) }}">refuse</a>
     {% endif %}
 
 {% endblock %}

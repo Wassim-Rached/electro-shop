@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProductReport{% endblock %}
+
+{% block body %}
+    <h1>ProductReport</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product_report.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product_report.description }}</td>
+            </tr>
+            <tr>
+                <th>Reason</th>
+                <td>{{ product_report.reason }}</td>
+            </tr>
+            <tr>
+            <th>Product</th>
+            <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ product_report.status }}</td>
+            </tr>
+            <tr>
+                <th>show</th>
+                <td>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    {% if app.user and app.user.username == 'admin' %}
+        <a href="{{ path('app_product_report_accept', {'id': product_report.id}) }}">accept</a>
+        <a href="{{ path('app_admin_products_reject', {'id': product_report.id}) }}">reject</a>
+    {% endif %}
+    <a href="{{ path('app_product_report_index') }}">back to list</a>
+
+{% endblock %}

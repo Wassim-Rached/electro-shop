@@ -35,7 +35,6 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    // register
     #[Route(path: '/register', name: 'app_register')]
     public function register(
         Request $request,
@@ -43,14 +42,12 @@ class SecurityController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-        // register form
         $user = new ApplicationUser();
         $form = $this->createForm(UserRegistrationFormType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword($passwordHasher->hashPassword(
                 $user,
                 $form->get('password')->getData()
@@ -58,7 +55,6 @@ class SecurityController extends AbstractController
 
             $user->setRoles(['ROLE_USER']);
 
-            // save the User!
             $entityManager->persist($user);
             $entityManager->flush();
 

@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/command')]
 class CommandController extends AbstractController
 {
-
     #[Route('/product/{id}/new', name: 'app_command_new', methods: ['GET', 'POST'])]
     public function new(
         Request                $request,
@@ -54,7 +53,6 @@ class CommandController extends AbstractController
         ]);
     }
 
-    // accept command
     #[Route('/{id}/accept', name: 'app_command_accept', methods: ['GET'])]
     public function accept(Command $command, EntityManagerInterface $entityManager): Response
     {
@@ -90,6 +88,9 @@ class CommandController extends AbstractController
     public function delete(Request $request, Command $command, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $command->getId(), $request->getPayload()->get('_token'))) {
+            if ($command->getForUser() !== $this->getUser()) {
+                throw $this->createAccessDeniedException();
+            }
             $entityManager->remove($command);
             $entityManager->flush();
         }

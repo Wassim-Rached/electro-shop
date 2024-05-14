@@ -33,7 +33,6 @@ class HealthCheckController extends AbstractController
         }
     }
 
-    // check the current user
     #[Route('/health-check/user', name: 'app_health_check_user')]
     public function test_user(): JsonResponse
     {
