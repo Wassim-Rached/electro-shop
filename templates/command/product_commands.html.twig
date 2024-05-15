@@ -10,42 +10,45 @@
             padding: 10px;
         }
     </style>
-    <h1>product commands : ({{ product.name }})</h1>
+    <div class="container mt-5">
+    <h1 class="text-center">Commands for : {{ product.name }}</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Delivered At</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>For User</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for command in commands %}
+                    <tr>
+                        <td>{{ command.id }}</td>
+                        <td>{{ command.status }}</td>
+                        <td>{{ command.createdAt ? command.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ command.delivredAt ? command.delivredAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ command.quantity }}</td>
+                        <td>{{ command.total }}</td>
+                        <td>{{ command.forUser.username }}</td>
+                        <td>
+                            <a href="{{ path('app_command_show', {'id': command.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                            <a href="{{ path('app_command_accept', {'id': command.id}) }}" class="btn btn-success btn-sm">Accept</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Status</th>
-                <th>Created_at</th>
-                <th>Delivred_at</th>
-                <th>Quantity</th>
-                <th>Total</th>
-{#                <th>for user</th>#}
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for command in commands %}
-            <tr>
-                <td>{{ command.id }}</td>
-                <td>{{ command.status }}</td>
-                <td>{{ command.createdAt ? command.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ command.delivredAt ? command.delivredAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ command.quantity }}</td>
-                <td>{{ command.total }}</td>
-{#                <td>{{ command.forUser.username }}</td>#}
-                <td>
-                    <a href="{{ path('app_command_show', {'id': command.id}) }}">show</a>
-                    <a href="{{ path('app_command_accept', {'id': command.id}) }}">accept</a>
-                </td>
-
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}

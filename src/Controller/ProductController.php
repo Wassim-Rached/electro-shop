@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\Product1Type;
 use App\Repository\ProductRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +15,27 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/product')]
 class ProductController extends AbstractController
 {
+    private FileUploader $fileUploader;
+
+    public function __construct(FileUploader $fileUploader)
+    {
+        $this->fileUploader = $fileUploader;
+    }
+
+
+
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository,Request $request): Response
     {
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findBy(['status' => 'accepted'])
+//            'products' => $productRepository->findBy(['status' => 'accepted'])
+            'products' => $productRepository->searchAndFilter(
+                $request->query->get('title'),
+                $request->query->get('max_price'),
+                $request->query->get('min_price'),
+                $request->query->get('is_used'),
+                $request->query->get('orderby')
+            )
         ]);
     }
 
@@ -28,7 +45,6 @@ class ProductController extends AbstractController
         return $this->render('product/my_products.html.twig', [
             'products' => $productRepository->findBy(['created_by' => $this->getUser()]),
             'user'=> $this->getUser()
-
         ]);
     }
 
@@ -42,6 +58,13 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $product->setCreatedBy($this->getUser());
             $product->setStatus('pending');
+
+            $photo = $form->get('photo')->getData();
+            if ($photo) {
+                $photoFileName = $this->fileUploader->upload($photo);
+                $product->setPhoto($photoFileName);
+            }
+
             $entityManager->persist($product);
             $entityManager->flush();
 

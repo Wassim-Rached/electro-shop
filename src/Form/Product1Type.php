@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\ApplicationUser;
 use App\Entity\Product;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class Product1Type extends AbstractType
 {
@@ -19,6 +19,18 @@ class Product1Type extends AbstractType
             ->add('quantity')
             ->add('price')
             ->add('isUsed')
+            ->add('photo', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '3000k',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide',
+                    ])
+                ],
+            ])
         ;
     }
 

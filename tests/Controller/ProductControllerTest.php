@@ -46,8 +46,6 @@ class ProductControllerTest extends WebTestCase
      */
     protected function tearDown(): void
     {
-        // Rollback transaction after each test
-//        #$manager->getConnection()->rollBack();
         $this->manager->getConnection()->rollBack();
         parent::tearDown();
     }

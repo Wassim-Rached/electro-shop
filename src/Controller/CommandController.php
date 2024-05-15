@@ -60,6 +60,12 @@ class CommandController extends AbstractController
             throw $this->createAccessDeniedException();
         }
         $command->setStatus('accepted');
+        $product = $command->getProduct();
+        $product->setQuantity($product->getQuantity() - $command->getQuantity());
+        if ($product->getQuantity() < 0) {
+            $this->addFlash('error', 'Not enough quantity');
+            return $this->redirectToRoute('app_product_commands', ['id' => $command->getProduct()->getId()], Response::HTTP_SEE_OTHER);
+        }
         $entityManager->flush();
         return $this->redirectToRoute('app_product_commands', ['id' => $command->getProduct()->getId()], Response::HTTP_SEE_OTHER);
     }
@@ -91,6 +97,8 @@ class CommandController extends AbstractController
             if ($command->getForUser() !== $this->getUser()) {
                 throw $this->createAccessDeniedException();
             }
+            $product = $command->getProduct();
+            $product->setQuantity($product->getQuantity() + $command->getQuantity());
             $entityManager->remove($command);
             $entityManager->flush();
         }

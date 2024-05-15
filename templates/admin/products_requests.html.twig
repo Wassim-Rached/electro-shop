@@ -2,43 +2,83 @@
 {% block title %}admin products requests{% endblock %}
 
 {% block body %}
+    <div class="container mt-5">
     <h1>Products requests</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Status</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Name</th>
+                    <th>Is Used</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.status }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.isUsed ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                            <a href="{{ path('app_admin_products_accept', {'id': product.id}) }}" class="btn btn-success btn-sm">Accept</a>
+                            <a href="{{ path('app_admin_products_reject', {'id': product.id}) }}" class="btn btn-danger btn-sm">Refuse</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Status</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Description</th>
-            <th>Name</th>
-            <th>IsUsed</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.status }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.quantity }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.isUsed ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_admin_products_accept', {'id': product.id}) }}">accept</a>
-                    <a href="{{ path('app_admin_products_reject', {'id': product.id}) }}">refuse</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{#    <table class="table">#}
+{#        <thead>#}
+{#        <tr>#}
+{#            <th>Id</th>#}
+{#            <th>Status</th>#}
+{#            <th>Price</th>#}
+{#            <th>Quantity</th>#}
+{#            <th>Description</th>#}
+{#            <th>Name</th>#}
+{#            <th>IsUsed</th>#}
+{#            <th>actions</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for product in products %}#}
+{#            <tr>#}
+{#                <td>{{ product.id }}</td>#}
+{#                <td>{{ product.status }}</td>#}
+{#                <td>{{ product.price }}</td>#}
+{#                <td>{{ product.quantity }}</td>#}
+{#                <td>{{ product.description }}</td>#}
+{#                <td>{{ product.name }}</td>#}
+{#                <td>{{ product.isUsed ? 'Yes' : 'No' }}</td>#}
+{#                <td>#}
+{#                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_admin_products_accept', {'id': product.id}) }}">accept</a>#}
+{#                    <a href="{{ path('app_admin_products_reject', {'id': product.id}) }}">refuse</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="8">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
 
 {% endblock %}

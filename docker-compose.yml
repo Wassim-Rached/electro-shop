@@ -7,7 +7,7 @@ services:
       context: docker/build/php
       dockerfile: Dockerfile
     environment:
-      - DATABASE_URL=mysql://wsaz:wsaz@mysql/mini-shop
+      - DATABASE_URL=mysql://wsaz:wsaz@mysql/mini-shop-dev
     volumes:
       - ./:/var/www/project/:cached
     networks:

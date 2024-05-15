@@ -4,14 +4,15 @@
 
 
 {% block body %}
-    <h1>register</h1>
-
+<div class="container">
+    <h1 class="text-center">register</h1>
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn btn-lg btn-primary" type="submit">
         register
     </button>
     {{ form_end(form) }}
+</div>
 {% endblock %}
 
 {#{% block body %}#}

@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Welcome in Electro-Shop !{% endblock %}
-
 {% block body %}
-    welcome to electro-shop
+    <div class="container mt-5">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4">Welcome to Electro Shop!</h1>
+            <p class="lead">Your one-stop shop for all electronic gadgets and accessories.</p>
+            <hr class="my-4">
+            <p>We offer a wide range of products to meet all your electronic needs, from the latest smartphones to cutting-edge home appliances.</p>
+{#            to app_product_index#}
+            <a class="btn btn-primary btn-lg" href="{{ path('app_product_index') }}" role="button">Browse Products</a>
+        </div>
+    </div>
 {% endblock %}

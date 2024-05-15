@@ -44,6 +44,9 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductReport::class, mappedBy: 'to_product')]
     private Collection $productReports;
 
+    #[ORM\Column(length: 255)]
+    private ?string $photo = null;
+
     public function __construct()
     {
         $this->commands = new ArrayCollection();
@@ -195,6 +198,18 @@ class Product
                 $productReport->setToProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }

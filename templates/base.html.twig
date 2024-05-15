@@ -6,6 +6,15 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <style>
+            body{
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            .main-content{
+                min-height: 100vh;
+
+            }
             ul,li{
                 list-style: none;
             }
@@ -32,53 +41,95 @@
         {% endblock %}
 
         {% block javascripts %}
-{#            {% block importmap %}{{ importmap('app') }}{% endblock %}#}
         {% endblock %}
     </head>
     <body>
-    <nav>
-        <div>
-            <a href="{{ path('app_main') }}">electro-shop</a>
-        </div>
+    <div class="main-content">
+{#    <nav>#}
+{#        <div>#}
+{#            <a href="{{ path('app_main') }}">electro-shop</a>#}
+{#        </div>#}
+{#        <div>#}
 
-        <div>
+{#        <ul class="links">#}
+{#            {% if app.user and app.user.username == 'admin' %}#}
+{#                <li>#}
+{#                    <a href="{{ path('app_admin_products') }}">Requests</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ path('app_product_report_index') }}">Reports</a>#}
+{#                </li>#}
+{#            {% else %}#}
+{#            <li>#}
+{#                <a href="{{ path('app_product_index') }}">all products</a>#}
+{#            </li>#}
+{#            {% if app.user %}#}
+{#                <li>#}
+{#                    <a href="{{ path('app_my_products') }}">my products</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ path('app_my_cart') }}">my cart</a>#}
+{#                </li>#}
+{#            {% endif %}#}
+{#        {% endif %}#}
+{#        </ul>#}
+{#        </div>#}
 
-        <ul class="links">
-            {% if app.user and app.user.username == 'admin' %}
-                <li>
-                    <a href="{{ path('app_admin_products') }}">Requests</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_product_report_index') }}">Reports</a>
-                </li>
-            {% else %}
-            <li>
-                <a href="{{ path('app_product_index') }}">all products</a>
-            </li>
-            {% if app.user %}
-                <li>
-                    <a href="{{ path('app_product_new') }}">Create new product</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_my_products') }}">my products</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_my_cart') }}">my cart</a>
-                </li>
-            {% endif %}
-        {% endif %}
-        </ul>
-        </div>
+{#        <div>#}
+{#            {% if app.user %}#}
+{#                <a href="{{ path('app_logout') }}">Logout({{ app.user.username }})</a>#}
+{#            {% else %}#}
+{#                <a href="{{ path('app_login') }}">Login</a>#}
+{#                <a href="{{ path('app_register') }}">Register</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </nav>#}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('app_main') }}">Electro Shop</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        {% if app.user and app.user.username == 'admin' %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_admin_products') }}">Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_product_report_index') }}">Reports</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_product_index') }}">All Products</a>
+                            </li>
+                            {% if app.user %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_my_products') }}">My Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_my_cart') }}">My Cart</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                    <div>
+                        {% if app.user %}
+                            <a href="{{ path('app_logout') }}" class="btn btn-outline-danger me-2">Logout ({{ app.user.username }})</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="btn btn-outline-primary me-2">Login</a>
+                            <a href="{{ path('app_register') }}" class="btn btn-primary">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-        <div>
-            {% if app.user %}
-                <a href="{{ path('app_logout') }}">Logout({{ app.user.username }})</a>
-            {% else %}
-                <a href="{{ path('app_login') }}">Login</a>
-                <a href="{{ path('app_register') }}">Register</a>
-            {% endif %}
-        </div>
-    </nav>
         {% block body %}{% endblock %}
+    </div>
+        <footer class="bg-dark text-white mt-5 p-3 text-center">
+            <p>© 2024 Electro Shop. All Rights Reserved.</p>
+        </footer>
     </body>
+
 </html>
