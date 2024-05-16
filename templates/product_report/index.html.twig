@@ -3,17 +3,16 @@
 {% block title %}ProductReport index{% endblock %}
 
 {% block body %}
-    <h1>ProductReport index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
+    <div class="container mt-3">
+    <h1>Reports Requests</h1>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Reason</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for product_report in product_reports %}
@@ -21,16 +20,18 @@
                 <td>{{ product_report.id }}</td>
                 <td>{{ product_report.description }}</td>
                 <td>{{ product_report.reason }}</td>
-                <td>{{ product_report.status }}</td>
                 <td>
-                    <a href="{{ path('app_product_report_show', {'id': product_report.id}) }}">show</a>
+                    <a href="{{ path('app_product_report_show', {'id': product_report.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                    <a href="{{ path('app_product_report_reject', {'id': product_report.id}) }}" class="btn btn-success btn-sm">Reject</a>
+                    <a href="{{ path('app_product_report_accept', {'id': product_report.id}) }}" class="btn btn-danger btn-sm">Ban</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="5" class="text-center">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    </div>
 {% endblock %}

@@ -15,8 +15,8 @@ class ProductReportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('description')
             ->add('reason')
+            ->add('description')
         ;
     }
 

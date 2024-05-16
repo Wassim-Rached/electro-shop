@@ -70,6 +70,18 @@ class CommandController extends AbstractController
         return $this->redirectToRoute('app_product_commands', ['id' => $command->getProduct()->getId()], Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/{id}/delivered', name: 'app_command_delivered', methods: ['GET'])]
+    public function delivered(Command $command, EntityManagerInterface $entityManager): Response
+    {
+        if ($command->getProduct()->getCreatedBy() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+        $command->setStatus('delivered');
+        $command->setDelivredAt(new \DateTimeImmutable());
+        $entityManager->flush();
+        return $this->redirectToRoute('app_product_commands', ['id' => $command->getProduct()->getId()], Response::HTTP_SEE_OTHER);
+    }
+
     #[Route('/product/{id}', name: 'app_product_commands', methods: ['GET'])]
     public function product_commands(Product $product, CommandRepository $commandRepository): Response
     {

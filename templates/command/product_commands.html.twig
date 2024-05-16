@@ -38,7 +38,11 @@
                         <td>{{ command.forUser.username }}</td>
                         <td>
                             <a href="{{ path('app_command_show', {'id': command.id}) }}" class="btn btn-primary btn-sm">Show</a>
-                            <a href="{{ path('app_command_accept', {'id': command.id}) }}" class="btn btn-success btn-sm">Accept</a>
+                            {% if command.status == 'pending' %}
+                                <a href="{{ path('app_command_accept', {'id': command.id}) }}" class="btn btn-success btn-sm">Accept</a>
+                                {% elseif command.status == 'accepted' %}
+                                <a href="{{ path('app_command_delivered', {'id': command.id}) }}" class="btn btn-success btn-sm">Deliver</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}

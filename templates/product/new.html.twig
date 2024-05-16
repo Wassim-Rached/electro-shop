@@ -5,9 +5,7 @@
 {% block body %}
 <div class="container">
     <h1 class="text-center pt-3">Create new Product</h1>
-
     {{ include('product/_form.html.twig') }}
-
     <a class="btn btn-danger" href="{{ path('app_product_index') }}">back to list</a>
 </div>
 

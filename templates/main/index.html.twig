@@ -4,12 +4,15 @@
 {% block body %}
     <div class="container mt-5">
         <div class="jumbotron bg-light p-5 rounded">
-            <h1 class="display-4">Welcome to Electro Shop!</h1>
-            <p class="lead">Your one-stop shop for all electronic gadgets and accessories.</p>
+            <h1 class="display-4 text-center">Welcome to Electro Shop!</h1>
+            <p class="lead text-center">Your Haven for Electronics, New and Pre-loved</p>
             <hr class="my-4">
-            <p>We offer a wide range of products to meet all your electronic needs, from the latest smartphones to cutting-edge home appliances.</p>
-{#            to app_product_index#}
-            <a class="btn btn-primary btn-lg" href="{{ path('app_product_index') }}" role="button">Browse Products</a>
+            <p>Hey there! Welcome to Electro Shop, where we're all about bringing you the best of both worlds - shiny new gadgets and cherished pre-loved treasures.</p>
+            <p>Whether you're on the hunt for the latest tech marvels or seeking out a good deal, we've got something for everyone. And guess what? You can even be part of our community by selling your own electronics and giving them a chance to find a new home.</p>
+            <div class="text-center">
+                <a class="btn btn-primary btn-lg" href="{{ path('app_product_index') }}" role="button">Let's Get Started</a>
+            </div>
         </div>
     </div>
+
 {% endblock %}

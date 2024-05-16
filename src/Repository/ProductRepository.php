@@ -83,6 +83,8 @@ class ProductRepository extends ServiceEntityRepository
             $queryBuilder->orderBy('p.price', 'DESC');
         }
 
+        $queryBuilder->andWhere('p.quantity > 0');
+
         // Return a Paginator object
         return $queryBuilder->getQuery()->getResult();
     }

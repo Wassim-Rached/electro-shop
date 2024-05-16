@@ -3,9 +3,9 @@
 {% block title %}New ProductReport{% endblock %}
 
 {% block body %}
-    <h1>Create new ProductReport</h1>
-
-    {{ include('product_report/_form.html.twig') }}
-
-    <a href="{{ path('app_product_report_index') }}">back to list</a>
+    <div class="container mt-4">
+        <h1>Create new ProductReport</h1>
+        {{ include('product_report/_form.html.twig') }}
+        <a class="btn btn-secondary" href="{{ path('app_product_report_index') }}">back to list</a>
+    </div>
 {% endblock %}

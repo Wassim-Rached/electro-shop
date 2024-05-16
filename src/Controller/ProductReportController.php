@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/report/product')]
+#[Route('/profile/report/product')]
 class ProductReportController extends AbstractController
 {
 
@@ -33,21 +33,12 @@ class ProductReportController extends AbstractController
             $entityManager->persist($productReport);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_product_report_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('product_report/new.html.twig', [
             'product_report' => $productReport,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_product_report_show', methods: ['GET'])]
-    public function show(ProductReport $productReport): Response
-    {
-        return $this->render('product_report/show.html.twig', [
-            'product_report' => $productReport,
-            'product' => $productReport->getToProduct(),
         ]);
     }
 

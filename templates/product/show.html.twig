@@ -15,53 +15,15 @@
                 <a href="{{ path('app_product_index') }}" class="btn btn-secondary">Back to list</a>
                 {% if app.user and app.user.username == product.createdBy.username %}
                     {{ include('product/_delete_form.html.twig') }}
-                {% else %}
+                {% elseif not is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-danger" href="{{ path('app_product_report_new', {'id': product.id}) }}">report</a>
                     <a class="btn btn-success" href="{{ path('app_command_new', {'id': product.id}) }}">order</a>
                 {% endif %}
-                {% if app.user and app.user.username == 'admin' %}
+                {% if app.user and is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-success" href="{{ path('app_admin_products_accept', {'id': product.id}) }}">accept</a>
                     <a class="btn btn-danger" href="{{ path('app_admin_products_reject', {'id': product.id}) }}">refuse</a>
                 {% endif %}
             </div>
         </div>
     </div>
-
-{#    <table class="table">#}
-{#        <tbody>#}
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ product.id }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Status</th>#}
-{#                <td>{{ product.status }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Price</th>#}
-{#                <td>{{ product.price }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Quantity</th>#}
-{#                <td>{{ product.quantity }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Description</th>#}
-{#                <td>{{ product.description }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Name</th>#}
-{#                <td>{{ product.name }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>IsUsed</th>#}
-{#                <td>{{ product.isUsed ? 'Yes' : 'No' }}</td>#}
-{#            </tr>#}
-{#        <tr>#}
-{#            <th>created_by</th>#}
-{#            <td>{{ product.createdBy.username }}</td>#}
-{#        </tr>#}
-{#        </tbody>#}
-{#    </table>#}
-
-
 {% endblock %}

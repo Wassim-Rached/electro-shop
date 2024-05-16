@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class AdminController extends AbstractController
 {
 
-//   Products
     #[Route('/products', name: 'app_admin_products', methods: ['GET'])]
     public function adminProducts(ProductRepository $productRepository): Response
     {
@@ -41,7 +40,6 @@ class AdminController extends AbstractController
     }
 
 
-//    Reports
     #[Route('/reports/', name: 'app_product_report_index', methods: ['GET'])]
     public function index(ProductReportRepository $productReportRepository): Response
     {
@@ -58,6 +56,7 @@ class AdminController extends AbstractController
         $productReport->setStatus("accepted");
         $entityManager->persist($product);
         $entityManager->persist($productReport);
+        $entityManager->flush();
         return $this->redirectToRoute('app_product_report_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -68,8 +67,18 @@ class AdminController extends AbstractController
         $entityManager->persist($productReport);
         $product = $productReport->getToProduct();
         $product->setStatus("accepted");
+        $entityManager->persist($product);
+        $entityManager->flush();
         return $this->redirectToRoute('app_product_report_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
+    #[Route('/product/report/{id}', name: 'app_product_report_show', methods: ['GET'])]
+    public function show(ProductReport $productReport): Response
+    {
+        return $this->render('product_report/show.html.twig', [
+            'product_report' => $productReport,
+            'product' => $productReport->getToProduct(),
+        ]);
+    }
 }

@@ -3,43 +3,41 @@
 {% block title %}ProductReport{% endblock %}
 
 {% block body %}
-    <h1>ProductReport</h1>
-
-    <table class="table">
+    <div class="container mt-3">
+    <h1>Report Request : {{ product_report.id }}</h1>
+    <table class="table table-bordered table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product_report.id }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product_report.description }}</td>
-            </tr>
-            <tr>
-                <th>Reason</th>
-                <td>{{ product_report.reason }}</td>
-            </tr>
-            <tr>
-            <th>Product</th>
-            <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ product_report.status }}</td>
-            </tr>
-            <tr>
-                <th>show</th>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                </td>
-            </tr>
-
+        <tr>
+            <th scope="row">Id</th>
+            <td>{{ product_report.id }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Description</th>
+            <td>{{ product_report.description }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Reason</th>
+            <td>{{ product_report.reason }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Product</th>
+            <td style="text-decoration: underline">
+                <a href="{{ path('app_product_show', {'id': product_report.toProduct.id}) }}">{{ product_report.toProduct.name }}</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Status</th>
+            <td>{{ product_report.status }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Actions</th>
+            <td>
+                <a href="{{ path('app_product_report_reject', {'id': product_report.id}) }}" class="btn btn-success btn-sm">Reject</a>
+                <a href="{{ path('app_product_report_accept', {'id': product_report.id}) }}" class="btn btn-danger btn-sm">Ban</a>
+            </td>
+        </tr>
         </tbody>
     </table>
-    {% if app.user and app.user.username == 'admin' %}
-        <a href="{{ path('app_product_report_accept', {'id': product_report.id}) }}">accept</a>
-        <a href="{{ path('app_admin_products_reject', {'id': product_report.id}) }}">reject</a>
-    {% endif %}
-    <a href="{{ path('app_product_report_index') }}">back to list</a>
-
+    <a class="btn btn-secondary" href="{{ path('app_product_report_index') }}">back to list</a>
+    </div>
 {% endblock %}

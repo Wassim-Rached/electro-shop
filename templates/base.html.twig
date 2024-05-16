@@ -13,7 +13,6 @@
             }
             .main-content{
                 min-height: 100vh;
-
             }
             ul,li{
                 list-style: none;
@@ -45,45 +44,6 @@
     </head>
     <body>
     <div class="main-content">
-{#    <nav>#}
-{#        <div>#}
-{#            <a href="{{ path('app_main') }}">electro-shop</a>#}
-{#        </div>#}
-{#        <div>#}
-
-{#        <ul class="links">#}
-{#            {% if app.user and app.user.username == 'admin' %}#}
-{#                <li>#}
-{#                    <a href="{{ path('app_admin_products') }}">Requests</a>#}
-{#                </li>#}
-{#                <li>#}
-{#                    <a href="{{ path('app_product_report_index') }}">Reports</a>#}
-{#                </li>#}
-{#            {% else %}#}
-{#            <li>#}
-{#                <a href="{{ path('app_product_index') }}">all products</a>#}
-{#            </li>#}
-{#            {% if app.user %}#}
-{#                <li>#}
-{#                    <a href="{{ path('app_my_products') }}">my products</a>#}
-{#                </li>#}
-{#                <li>#}
-{#                    <a href="{{ path('app_my_cart') }}">my cart</a>#}
-{#                </li>#}
-{#            {% endif %}#}
-{#        {% endif %}#}
-{#        </ul>#}
-{#        </div>#}
-
-{#        <div>#}
-{#            {% if app.user %}#}
-{#                <a href="{{ path('app_logout') }}">Logout({{ app.user.username }})</a>#}
-{#            {% else %}#}
-{#                <a href="{{ path('app_login') }}">Login</a>#}
-{#                <a href="{{ path('app_register') }}">Register</a>#}
-{#            {% endif %}#}
-{#        </div>#}
-{#    </nav>#}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ path('app_main') }}">Electro Shop</a>
@@ -92,7 +52,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        {% if app.user and app.user.username == 'admin' %}
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_admin_products') }}">Requests</a>
                             </li>
@@ -103,7 +63,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_product_index') }}">All Products</a>
                             </li>
-                            {% if app.user %}
+                            {% if app.user and is_granted('ROLE_USER') %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_my_products') }}">My Products</a>
                                 </li>

@@ -23,12 +23,10 @@ class ProductController extends AbstractController
     }
 
 
-
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository,Request $request): Response
     {
         return $this->render('product/index.html.twig', [
-//            'products' => $productRepository->findBy(['status' => 'accepted'])
             'products' => $productRepository->searchAndFilter(
                 $request->query->get('title'),
                 $request->query->get('max_price'),
@@ -39,7 +37,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/my', name: 'app_my_products', methods: ['GET'])]
+    #[Route('/profile/my', name: 'app_my_products', methods: ['GET'])]
     public function myProducts(ProductRepository $productRepository): Response
     {
         return $this->render('product/my_products.html.twig', [
@@ -48,7 +46,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
+    #[Route('/profile/new', name: 'app_product_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
@@ -86,7 +84,7 @@ class ProductController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
+    #[Route('/profile/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->getPayload()->get('_token'))) {
@@ -99,9 +97,4 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
-
-
-
 }
