@@ -40,6 +40,8 @@ security:
         - { path: ^/product/profile, roles: ROLE_USER }
         - { path: ^/product, roles: PUBLIC_ACCESS }
         - { path: ^/command, roles: ROLE_USER }
+        - { path: ^/profile/change-password, roles: ROLE_USER }
+        - { path: ^/profile/address, roles: ROLE_USER }
         - { path: ^/, roles: PUBLIC_ACCESS }
 
 when@test:

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Command;
 use App\Entity\Product;
 use App\Form\CommandType;
+use App\Repository\ApplicationUserRepository;
 use App\Repository\CommandRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,17 @@ class CommandController extends AbstractController
     public function new(
         Request                $request,
         EntityManagerInterface $entityManager,
-        Product                $product
+        Product                $product,
+        ApplicationUserRepository $applicationUserRepository
     ): Response
     {
         $command = new Command();
+        $applicationUser = $applicationUserRepository->findOneBy(['username' => $product->getCreatedBy()->getUserIdentifier()]);
+        $default_address = $applicationUser->getAddress();
+        if ($default_address) {
+            $command->setAddress($default_address);
+        }
+
         $form = $this->createForm(CommandType::class, $command);
         $form->handleRequest($request);
 
