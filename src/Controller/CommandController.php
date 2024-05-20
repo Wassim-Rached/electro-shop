@@ -25,7 +25,8 @@ class CommandController extends AbstractController
     ): Response
     {
         $command = new Command();
-        $applicationUser = $applicationUserRepository->findOneBy(['username' => $product->getCreatedBy()->getUserIdentifier()]);
+        $user = $this->getUser();
+        $applicationUser = $applicationUserRepository->findOneBy(['username' => $user->getUserIdentifier()]);
         $default_address = $applicationUser->getAddress();
         if ($default_address) {
             $command->setAddress($default_address);
