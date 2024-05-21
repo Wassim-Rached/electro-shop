@@ -8,14 +8,14 @@
             <img src="{{ asset('uploads/' ~ product.photo) }}" class="card-img-top" alt="{{ product.name }}" style="width: 100%; height: 400px; object-fit: cover;">
             <div class="card-body">
                 <h1 class="card-title">{{ product.name }}</h1>
-                <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
+                <p class="card-text"><strong>Price:</strong> {{ product.price }} TND</p>
                 <p class="card-text"><strong>Quantity:</strong> {{ product.quantity }}</p>
                 <p class="card-text"><strong>Description:</strong> {{ product.description }}</p>
                 <p class="card-text"><strong>Is Used:</strong> {{ product.isUsed ? 'Yes' : 'No' }}</p>
                 <a href="{{ path('app_product_index') }}" class="btn btn-secondary">Back to list</a>
                 {% if app.user and app.user.username == product.createdBy.username %}
                     {{ include('product/_delete_form.html.twig') }}
-                {% elseif not is_granted('ROLE_ADMIN') %}
+                {% elseif app.user and not is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-danger" href="{{ path('app_product_report_new', {'id': product.id}) }}">report</a>
                     <a class="btn btn-success" href="{{ path('app_command_new', {'id': product.id}) }}">order</a>
                 {% endif %}
